@@ -7,4 +7,10 @@ var Router = Ember.Router.extend({
 
 export default Router.map(function() {
   this.route('login');
+  this.resource('pages', function() {
+    this.route('show', {
+      path: '/:pageSlug'
+    });
+    this.route('new');
+  });
 });

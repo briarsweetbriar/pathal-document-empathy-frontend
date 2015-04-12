@@ -1,4 +1,5 @@
 {{#if session.isAuthenticated}}
   <a id='sign_out_button' {{action 'signOut'}}>Sign Out</a>
+  {{#link-to 'pages.new'}}+{{/link-to}}
 {{/if}}
 {{outlet}}

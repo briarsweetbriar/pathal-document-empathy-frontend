@@ -9,6 +9,19 @@ export default function() {
   // this.timing = 400;      // delay for each request, automatically set to 0 during testing
 
   this.post('/users/sign_in', {"token": "token", "email": "valid@email.com"});
+  this.get('/pages', 'pages');
+  this.get('/pages/:slug', (db, request) => {
+    const page = db.pages.where({ slug: request.params.slug })[0];
+    return { page: page };
+  });
+  this.post('/pages', (db, request) => {
+    const requestBody = JSON.parse(request.requestBody);
+    const pages = db.pages.insert(requestBody);
+    const page = pages.page;
+    page.slug = page.title.dasherize();
+    db.pages.update(pages.id, page);
+    return { page: db.pages.find(pages.id) };
+  });
 
   /*
     Route shorthand cheatsheet
