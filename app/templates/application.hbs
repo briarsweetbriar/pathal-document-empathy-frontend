@@ -1,3 +1,4 @@
-<h2 id="title">Welcome to Ember.js</h2>
-
+{{#if session.isAuthenticated}}
+  <a id='sign_out_button' {{action 'signOut'}}>Sign Out</a>
+{{/if}}
 {{outlet}}

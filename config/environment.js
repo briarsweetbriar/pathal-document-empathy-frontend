@@ -16,6 +16,10 @@ module.exports = function(environment) {
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
+    },
+
+    contentSecurityPolicy: {
+      'style-src': "'self' 'unsafe-inline'"
     }
   };
 
@@ -37,11 +41,23 @@ module.exports = function(environment) {
     ENV.APP.LOG_VIEW_LOOKUPS = false;
 
     ENV.APP.rootElement = '#ember-testing';
+
+    ENV['simple-auth'] = {
+      store: 'simple-auth-session-store:ephemeral'
+    }
   }
 
   if (environment === 'production') {
 
   }
+
+  ENV['simple-auth'] = {
+    authorizer: 'simple-auth-authorizer:devise'
+  };
+
+  ENV['simple-auth-devise'] = {
+    serverTokenEndpoint: '/api/users/sign_in'
+  };
 
   return ENV;
 };
