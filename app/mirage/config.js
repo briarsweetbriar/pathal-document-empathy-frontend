@@ -8,24 +8,35 @@ export default function() {
   this.namespace = 'api';    // make this `api`, for example, if your API is namespaced
   // this.timing = 400;      // delay for each request, automatically set to 0 during testing
 
+  function sluggerize(db, page, id) {
+    page.id = page.title.dasherize();
+    db.pages.update(id, page);
+    return db.pages.find(page.id);
+  }
+
   this.post('/users/sign_in', {"token": "token", "email": "valid@email.com"});
   this.get('/pages', 'pages');
-  this.get('/pages/:slug', (db, request) => {
-    const page = db.pages.where({ slug: request.params.slug })[0];
+  this.get('/pages/:id');
+  this.post('/pages', (db, request) => {
+    const attrs = JSON.parse(request.requestBody);
+    const pages = db.pages.insert(attrs);
+    let page = pages.page;
+    page = sluggerize(db, page, pages.id);
+
     return { page: page };
   });
-  this.post('/pages', (db, request) => {
-    const requestBody = JSON.parse(request.requestBody);
-    const pages = db.pages.insert(requestBody);
-    let page = pages.page;
-    page.slug = page.title.dasherize();
-    db.pages.update(pages.id, page);
-    page = db.pages.find(pages.id)
+  this.put('/pages/:id', (db, request) => {
+    const id = request.params.id;
+    const attrs = JSON.parse(request.requestBody);
+    db.pages.update(id, attrs);
+    let page = db.pages.find(id);
+    page = sluggerize(db, page, id);
+
     return { page: page };
   });
 
   this.get('/files/:id', 'file');
-  this.post('/files', (db, request) => {
+  this.post('/files', (db) => {
     const file = db.files.insert({ path: '/files/sloth.jpg' });
     return { file: file };
   });

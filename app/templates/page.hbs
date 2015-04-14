@@ -1,0 +1,12 @@
+<h2 id='page_title'>{{model.title}}</h2>
+{{partial 'pages/show'}}
+{{outlet}}
+{{#if model.previous}}
+  {{#link-to 'page' model.previous.id id='previous_page_link'}}Previous{{/link-to}}
+{{/if}}
+{{#if session.isAuthenticated}}
+  {{#link-to 'page.edit' model}}Edit{{/link-to}}
+{{/if}}
+{{#if model.next}}
+  {{#link-to 'page' model.next.id id='next_page_link'}}Next{{/link-to}}
+{{/if}}

@@ -8,9 +8,11 @@ var Router = Ember.Router.extend({
 export default Router.map(function() {
   this.route('login');
   this.resource('pages', function() {
-    this.route('show', {
-      path: '/:pageSlug'
-    });
     this.route('new');
+  });
+  this.resource('page', {
+    path: 'pages/:pageId'
+  }, function() {
+    this.route('edit');
   });
 });

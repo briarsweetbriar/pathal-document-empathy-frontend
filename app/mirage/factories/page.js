@@ -5,5 +5,7 @@ const Factory = Mirage.Factory;
 export default Factory.extend({
   title: 'I am a Title',
   caption: 'and i\'m a caption!',
-  file_id: 1
+  file_id: (i) => {
+    return i;
+  }
 });

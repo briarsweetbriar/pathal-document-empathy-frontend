@@ -8,24 +8,27 @@ import domElements from 'frontend/tests/helpers/dom-elements';
 
 let application;
 
-module('Acceptance: PagesShow', {
+module('Acceptance: Page', {
   beforeEach: function() {
     application = startApp();
     const pageOne = server.create('page', {
       title: 'First Page',
-      slug: 'first-page',
-      next_id: 'second-page'
+      id: 'first-page',
+      next_id: 'second-page',
+      file_id: null
     });
     const secondPage = server.create('page', {
       title: 'Second Page',
-      slug: 'second-page',
+      id: 'second-page',
       next_id: 'third-page',
-      previous_id: 'first-page'
+      previous_id: 'first-page',
+      file_id: null
     });
     const thirdPage = server.create('page', {
       title: 'Third Page',
-      slug: 'third-page',
-      previous_id: 'second-page'
+      id: 'third-page',
+      previous_id: 'second-page',
+      file_id: null
     });
   },
 
@@ -34,7 +37,7 @@ module('Acceptance: PagesShow', {
   }
 });
 
-test('visiting /pages/show', function(assert) {
+test('visiting /page', function(assert) {
   visit('/pages/first-page')
     .then( () => {
       let url = currentURL();

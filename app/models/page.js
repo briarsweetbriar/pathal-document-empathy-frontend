@@ -18,7 +18,6 @@ export default Model.extend({
   }),
 
   caption: DS.attr('string'),
-  slug: DS.attr('string'),
   title: DS.attr('string'),
 
   filePath: computed('file.path', function() {

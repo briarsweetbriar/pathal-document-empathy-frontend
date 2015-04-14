@@ -1,0 +1,6 @@
+<form>
+  {{input value=model.title id='title_field' placeholder='Title'}}
+  {{input value=model.caption id='caption_field' placeholder='Caption'}}
+  {{file-upload uploadable=model}}
+  <button id='submit_button' {{action 'submit'}}>Submit</button>
+</form>
