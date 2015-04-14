@@ -17,10 +17,17 @@ export default function() {
   this.post('/pages', (db, request) => {
     const requestBody = JSON.parse(request.requestBody);
     const pages = db.pages.insert(requestBody);
-    const page = pages.page;
+    let page = pages.page;
     page.slug = page.title.dasherize();
     db.pages.update(pages.id, page);
-    return { page: db.pages.find(pages.id) };
+    page = db.pages.find(pages.id)
+    return { page: page };
+  });
+
+  this.get('/files/:id', 'file');
+  this.post('/files', (db, request) => {
+    const file = db.files.insert({ path: '/files/sloth.jpg' });
+    return { file: file };
   });
 
   /*

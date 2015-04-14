@@ -1,4 +1,5 @@
 <h2 id='page_title'>{{model.title}}</h2>
+{{partial 'pages/show'}}
 {{#if model.previous}}
   {{#link-to 'pages.show' model.previous.slug id='previous_page_link'}}Previous{{/link-to}}
 {{/if}}

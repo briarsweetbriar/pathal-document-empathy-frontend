@@ -1,7 +1,14 @@
-<h2 id='page_title'>New Page</h2>
+{{#if model.title}}
+  <h2 id='page_title'>{{model.title}}</h2>
+{{else}}
+  <h2 id='page_title'>New Page</h2>
+{{/if}}
 
-<form {{action 'submit'}}>
+{{partial 'pages/show'}}
+
+<form>
   {{input value=model.title id='title_field' placeholder='Title'}}
   {{input value=model.caption id='caption_field' placeholder='Caption'}}
-  {{input type='button' value='Submit' id='submit_button'}}
+  {{file-upload uploadable=model}}
+  <button id='submit_button' {{action 'submit'}}>Submit</button>
 </form>
